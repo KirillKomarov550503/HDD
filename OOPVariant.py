@@ -17,12 +17,14 @@ class HDD:
             for j in self.keys:
                 if ((j + ":") in i):
                     temp = i.split(j)[1]
-                    if (":" in temp):
-                        temp = temp.split(":")[1]
-                    if ("\t" in temp):
-                        temp = temp.split("\t")[1]
-                    if ("\n" in temp):
-                        temp = temp.split("\n")[0]
+                    d = {
+                         ":": lambda x: x.split(":")[1],
+                         "\t": lambda x: x.split("\t")[1],
+                         "\n": lambda x: x.split("\n")[0]
+                    }
+                    for i in d.keys():
+                        if i in temp:
+                            temp = d[i](temp)
                     while (temp[0] == ' '):
                         temp = temp[1:]
                     while (temp[-1] == ' '):
